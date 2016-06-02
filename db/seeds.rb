@@ -8,6 +8,14 @@ require 'random_data'
   body:  RandomData.random_paragraph
 )
 end
+
+
+  Post.create!(
+
+  title:  "New Title",
+  body:  "This is a brand new Body message"
+  )
+
 posts = Post.all
 
 # Create Comments
@@ -19,6 +27,12 @@ posts = Post.all
   body: RandomData.random_paragraph
 )
 end
+
+Comment.create!(
+
+  post: posts.sample,
+  body: "This is a brand new Comment"
+)
 
 puts "Seed finished"
 puts "#{Post.count} post created"
