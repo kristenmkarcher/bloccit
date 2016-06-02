@@ -69,4 +69,8 @@ group :development do
   gem 'spring'
 end
 
+group :development do
+  gem 'pry-rails'
+end
+
 gem 'bootstrap-sass'
