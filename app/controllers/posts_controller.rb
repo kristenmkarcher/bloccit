@@ -42,6 +42,8 @@ class PostsController < ApplicationController
       flash.now[:alert] = "There was an error saving the post. Please try again."
       render :edit
     end
+  end
+
   def destroy
     @post = Post.find(params[:id])
 
@@ -50,7 +52,8 @@ class PostsController < ApplicationController
       redirect_to_posts_path
     else
       flash.now[:alert] = "There was an error deleting the post."
-      render :show     
+      render :show
     end
   end
+
 end
