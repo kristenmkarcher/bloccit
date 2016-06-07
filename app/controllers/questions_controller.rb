@@ -33,8 +33,7 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:id])
     @question.title = params[:question][:title]
     @question.body = params[:question][:body]
-    #@question.resolved = params[:question][:resolved]
-    @question.resolved = check_box("question", "resolved")
+    @question.resolved = params[:question][:resolved]
 
 
      if @question.save
@@ -51,7 +50,7 @@ class QuestionsController < ApplicationController
 
      if @question.destroy
       flash[:notice] = "\"#{@question.title}\" was deleted successfully."
-      redirect_to_questions_path
+      redirect_to questions_path
      else
       flash.now[:alert] = "There was an error deleting the question."
       render :show

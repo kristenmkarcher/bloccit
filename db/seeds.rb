@@ -1,5 +1,9 @@
 require 'random_data'
 
+Post.destroy_all
+Comment.destroy_all
+Question.destroy_all
+
 # Create Posts
 50.times do
   Post.create!(
@@ -17,6 +21,15 @@ posts = Post.all
 
   post: posts.sample,
   body: RandomData.random_paragraph
+)
+end
+
+25.times do
+  Question.create!(
+
+  title: RandomData.random_sentence,
+  body: RandomData.random_paragraph,
+  resolved: false
 )
 end
 
