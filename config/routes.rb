@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   get 'about' => 'welcome#about'
 
+  post 'confirmation' => 'users#confirmation'
+
   get 'welcome/contact'
 
   root 'welcome#index'
