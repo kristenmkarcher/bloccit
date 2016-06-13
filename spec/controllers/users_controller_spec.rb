@@ -11,7 +11,6 @@ RSpec.describe UsersController, type: :controller do
 
     }
  end
-end
 
 
 describe "GET new" do
@@ -57,4 +56,5 @@ describe "POST create" do
     post :create, user: new_user_attributes
     expect(assigns(:user).password_confirmation).to eq new_user_attributes[:password_confirmation]
   end
+end
 end
