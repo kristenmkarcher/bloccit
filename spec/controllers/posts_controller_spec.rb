@@ -81,7 +81,7 @@ RSpec.describe PostsController, type: :controller do
     it "renders the #show view" do
       get :show, topic_id: my_topic.id, id: my_post.id
       expect(response).to render_template :show
-  end
+    end
 
     it "assigns my_post to @post" do
       get :show, topic_id: my_topic.id, id: my_post.id
@@ -161,13 +161,13 @@ context "member user doing CRUD on a post they own" do
     it "renders the #show view" do
         get :show, topic_id: my_topic.id, id: my_post.id
         expect(response).to render_template :show
-      end
+    end
 
-      it "assigns my_post to @post" do
+    it "assigns my_post to @post" do
         get :show, topic_id: my_topic.id, id: my_post.id
         expect(assigns(:post)).to eq(my_post)
-      end
     end
+  end
 
     describe "GET new" do
       it "returns http success" do
@@ -370,5 +370,28 @@ context "member user doing CRUD on a post they own" do
         expect(response).to redirect_to my_topic
       end
     end
+
+  context "moderator user doing CRUD on a post they don't own" do
+    before do
+      other_user.moderator!
+      create_session(other_user)
+    end
   end
+
+  describe "GET show" do
+    it "returns http success" do
+      get :show, topic_id: my_topic.id, id: my_post.id
+      expect(response).to have_http_status(:success)
+    end
+    it "renders the #show view" do
+      get :show, topic_id: my_topic.id, id: my_post.id
+      expect(response).to render_template :show
+    end
+
+    it "assigns my_post to @post" do
+      get :show, topic_id: my_topic.id, id: my_post.id
+      expect(assigns(:post)).to eq(my_post)
+    end
+  end
+end
 end

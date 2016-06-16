@@ -17,11 +17,11 @@ RSpec.describe User, type: :model do
    it { is_expected.to validate_presence_of(:password) }
    it { is_expected.to have_secure_password }
    it { is_expected.to validate_length_of(:password).is_at_least(6) }
-end
+
 
   describe "attributes" do
-  #   it "should have name and email attributes" do
-  #     expect(user).to have_attributes(name: "Bloccit User", email: "user@bloccit.com")
+     it "should have name and email attributes" do
+     expect(user).to have_attributes(name: "Bloccit User", email: "user@bloccit.com")
   end
 
   describe "invalid user" do
@@ -35,6 +35,8 @@ end
     it "should be an invalid user due to blank email" do
       expect(user_with_invalid_email).to_not be_valid
     end
+  end
+end
 
     it "responds to role" do
        expect(user).to respond_to(:role)
@@ -45,6 +47,9 @@ end
        expect(user).to respond_to(:admin?)
      end
 
+     it "responds to moderator?" do
+       expect(user).to respond_to(:moderator?)
+     end
 
      it "responds to member?" do
        expect(user).to respond_to(:member?)
@@ -52,34 +57,50 @@ end
    end
 
    describe "roles" do
-
-     it "is member by default" do
-       expect(user.role).to eq("member")
+       it "is member by default" do
+       #expect(user.role).to eq("member")
      end
 
 
      context "member user" do
        it "returns true for #member?" do
-         expect(user.member?).to be_truthy
+       #expect(user.member?).to be_truthy
        end
 
        it "returns false for #admin?" do
-         expect(user.admin?).to be_falsey
+       #expect(user.admin?).to be_falsey
        end
      end
 
+  context "moderator user" do
+     before do
+     #user.moderator!
+     end
 
-     context "admin user" do
+     it "returns true for #moderator?" do
+     #expect(user.moderator?).to be_truthy
+     end
+
+     it "returns false for #member?" do
+     #expect(user.member?).to be_falsey
+     end
+
+     it "returns false for #admin?" do
+     #expect(user.admin?).to be_falsey
+     end
+   end
+
+   context "admin user" do
        before do
-         user.admin!
+      #user.admin!
        end
 
        it "returns false for #member?" do
-         expect(user.member?).to be_falsey
+      #expect(user.member?).to be_falsey
        end
 
        it "returns true for #admin?" do
-         expect(user.admin?).to be_truthy
+      #expect(user.admin?).to be_truthy
        end
      end
    end

@@ -12,7 +12,7 @@ end
 
   get 'about' => 'welcome#about'
 
-  get 'welcome/contact'
+  #get 'welcome/contact'
 
   root 'welcome#index'
 end
