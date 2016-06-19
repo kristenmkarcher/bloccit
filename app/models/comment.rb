@@ -1,10 +1,9 @@
 class Comment < ActiveRecord::Base
   belongs_to :post
   belongs_to :user
-<<<<<<< HEAD
+  belongs_to :topic 
+
 
   validates :body, length: { minimum: 5 }, presence: true
-  validates :user, presence: true 
-=======
->>>>>>> checkpoint-40-authorization
+  validates :user, presence: true
 end
