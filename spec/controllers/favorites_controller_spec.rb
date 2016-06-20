@@ -3,6 +3,7 @@ require 'rails_helper'
 
  RSpec.describe FavoritesController, type: :controller do
    let(:my_user) { User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "helloworld") }
+   let(:other_user) { User.create!(name: "Other User", email: "other_user@bloccit.com", password: "helloworld") }
    let(:my_topic) { Topic.create!(name:  RandomData.random_sentence, description: RandomData.random_paragraph) }
    let(:my_post) { my_topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: my_user) }
 
@@ -33,27 +34,27 @@ require 'rails_helper'
          expect(response).to redirect_to([my_topic, my_post])
        end
 
-       it 'creates a favorite for the current user and specified post' do
-         expect(my_user.favorites.find_by_post_id(my_post.id)).to be_nil
+       it 'increments the number of favorites for the post' do
+         expect(my_user.favorites.where(post_id: my_post.id).count).to eq(1)
          post :create, { post_id: my_post.id }
-         expect(my_user.favorites.find_by_post_id(my_post.id)).not_to be_nil
+         expect(my_post.favorites.count).to eq(2)
        end
      end
 
      describe 'DELETE destroy' do
          it 'redirects to the posts show view' do
-           favorite = my_user.favorites.where(post: my_post).create
+           favorite = my_user.favorites.where(post: my_post).first
            delete :destroy, { post_id: my_post.id, id: favorite.id }
            expect(response).to redirect_to([my_topic, my_post])
          end
 
          it 'destroys the favorite for the current user and post' do
-           favorite = my_user.favorites.where(post: my_post).create
-           expect( my_user.favorites.find_by_post_id(my_post.id) ).not_to be_nil
+           favorite = my_user.favorites.where(post: my_post).first
+           expect( my_user.favorites.find_by(post_id: my_post.id) ).not_to be_nil
 
            delete :destroy, { post_id: my_post.id, id: favorite.id }
-  
-           expect( my_user.favorites.find_by_post_id(my_post.id) ).to be_nil
+
+           expect( my_user.favorites.find_by(post_id: my_post.id) ).to be_nil
          end
        end
      end

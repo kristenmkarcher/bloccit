@@ -20,6 +20,6 @@ class FavoriteMailer < ApplicationMailer
 
         @post = post
 
-        mail(to: user.email, subject: "New comment on #{post.title}")
+        mail(to: post.user.email, subject: "New comment on #{post.title}")
       end
    end
