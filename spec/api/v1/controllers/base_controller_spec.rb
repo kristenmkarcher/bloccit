@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-Rspec.describe Api::V1::BaseController, type: :controller do
+RSpec.describe Api::V1::BaseController, type: :controller do
   let(:my_user) { create(:user) }
 
   context "authorized user" do
@@ -11,8 +11,8 @@ Rspec.describe Api::V1::BaseController, type: :controller do
 
     describe "#authenticate_user" do
       it "finds a user by their authentication token" do
-         expect(assigns(:current_user)).to eq(my_user)
-       end
-     end
-   end
+        expect(assigns(:current_user)).to eq(my_user)
+      end
+    end
+  end
 end
