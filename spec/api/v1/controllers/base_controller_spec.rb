@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-Rspec.describe Api::V1::BaseController, type: :controller do
+RSpec.describe Api::V1::BaseController, type: :controller do
   let(:my_user) { create(:user) }
 
   context "authorized user" do
